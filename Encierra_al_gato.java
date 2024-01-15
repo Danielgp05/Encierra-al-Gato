@@ -1,5 +1,4 @@
 
-
 import java.util.Scanner;
 
 public class Encierra_al_gato {
@@ -235,28 +234,28 @@ public class Encierra_al_gato {
 	public static void imprimirTablero(int m[][]) {
 
 		int contador = 1;
-		
+
 		System.out.println();
 		System.out.printf("%47s", " ");
 		System.out.println(" 1   2   3   4   5   6   7   8   9   10 ");
-		
+
 		//Imprimir numeros laterales
 		for (int i = 0; i < m.length; i++) {
 
 			System.out.printf("%43s", " ");
 
-            if(contador == 10){
+			if(contador == 10){
 
-                System.out.print(contador);
+				System.out.print(contador);
 
-            }else{
+			}else{
 
-                System.out.print(contador + " ");
+				System.out.print(contador + " ");
 
-            }
-			
+			}
+
 			contador++;
-			
+
 			for (int j = 0; j < m[0].length; j++) {
 
 				if(i % 2 == 0) {
@@ -270,7 +269,7 @@ public class Encierra_al_gato {
 				}
 
 				//LIBRE-BARRERA-GATO
-				
+
 				if(m[i][j] == LIBRE) {
 
 					System.out.printf("%s ", " 🔵" + BLANCO);
@@ -314,41 +313,55 @@ public class Encierra_al_gato {
 
 		System.out.println();
 
-		do {
+		if(fila < 0 ) {
 
-			if(fila < 0 ) {
+			do {
 
 				System.out.printf("\t%s","No se permiten numeros negativos o 0, introduce de nuevo la fila: ");
 				fila = teclado.nextInt();
 				fila -= 1;
 
-			}
+			}while(fila < 0 );
 
-			if(columna < 0) {
+		}
+
+		if(columna < 0) {
+
+			do {
 
 				System.out.printf("\t%s","No se permiten numeros negativos o 0, introduce de nuevo la columna: ");
 				columna = teclado.nextInt();
 				columna -= 1;
 
-			}
+			}while(columna < 0);
 
-			if(fila > 9) {
+		}
+
+		if(fila > 9) {
+
+			do {
 
 				System.out.printf("\tFila fuera del rango, por favor introduce de nuevo la fila: ");
 				fila = teclado.nextInt();
 				fila -= 1;
 
-			}
+			}while(fila > 9);
 
-			if(columna > 9) {
+		}
 
+		if(columna > 9) {
+
+			do {
 				System.out.printf("\tColumna fuera del rango, por favor introduce de nuevo la columna: ");
 				columna = teclado.nextInt();
 				columna -= 1;
 
-			}
+			}while(columna > 9);
+		}
 
-			if(m[fila][columna] == GATO) {
+		if(m[fila][columna] == GATO) {
+
+			do {
 
 				System.out.printf("\t%s%n","No puedes cambiar la posición en la cual esta el gato, indique otra casilla.");
 				System.out.println();
@@ -361,9 +374,13 @@ public class Encierra_al_gato {
 				columna = teclado.nextInt();
 				columna -= 1;
 
-			}
+			}while(m[fila][columna] == GATO);
 
-			if(m[fila][columna] == BARRERA) {
+		}
+
+		if(m[fila][columna] == BARRERA) {
+
+			do {
 
 				System.out.printf("\t%s%n","Esta casilla ya ha sido marcada como barrera, por favor indica otra casilla.");
 				System.out.println();
@@ -376,12 +393,14 @@ public class Encierra_al_gato {
 				columna = teclado.nextInt();
 				columna -= 1;
 
-			}
 
+			}while(m[fila][columna] == BARRERA);
+		}
 
-		}while(fila < 0 || columna < 0 || m[fila][columna] == GATO || fila > 9 || columna > 9 || m[fila][columna] == BARRERA);
 
 		m[fila][columna] = BARRERA;
+
+
 
 		//Hacer los movimiento y determinar si gana o no
 
